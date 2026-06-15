@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ثبت/ویرایش حضور و غیاب</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="card w-75 mx-auto shadow">
+        <div class="card-header bg-primary text-white">
+            <h3>ثبت کارکرد ماهانه</h3>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/attendances/save}" th:object="${attendance}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="mb-3">
+                    <label class="form-label">کارمند</label>
+                    <select th:field="*{employee.id}" class="form-select" required>
+                        <option value="">انتخاب کنید</option>
+                        <option th:each="emp : ${employees}" th:value="${emp.id}" th:text="${emp.firstName} + ' ' + ${emp.lastName}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">دوره (سال/ماه)</label>
+                    <input type="month" th:field="*{period}" class="form-control"required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">روزهای حضور</label>
+                    <input type="number"  th:field="*{daysPresent}" class="form-control" value="0">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">روزهای غیبت</label>
+                    <input  type="number"  th:field="*{daysAbsent}" class="form-control" value="0">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">ساعت اضافه کار</label>
+                    <input type="number"  th:field="*{overtimeHours}" class="form-control" value="0">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">روزهای ماموریت</label>
+                    <input type="number"  th:field="*{missionDays}" class="form-control" value="0">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">ساعت تأخیر</label>
+                    <input type="number"  th:field="*{lateHours}" class="form-control" value="0">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">اضافه کار تعطیل</label>
+                    <input type="number"  th:field="*{extraWorkHoliday}" class="form-control" value="0">
+                </div>
+
+                <button type="submit" class="btn btn-success">ذخیره</button>
+                <a th:href="@{/attendances}" class="btn btn-secondary">انصراف</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

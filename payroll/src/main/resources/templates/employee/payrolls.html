@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>فیش‌های حقوقی من</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        .number-format {
+            direction: ltr;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="m-0">📄 فیش‌های حقوقی من</h1>
+        <a th:href="@{/employee/dashboard}" class="btn btn-secondary">🔙 بازگشت</a>
+    </div>
+    <div class="card shadow">
+        <div class="card-body">
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div class="table-responsive">
+                <table class="table table-bordered text-center">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>سال/ماه</th>
+                        <th>جمع دریافتی‌ها (ریال)</th>
+                        <th>جمع کسورات (ریال)</th>
+                        <th>خالص پرداختی (ریال)</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p, iterStat : ${payrolls}" th:if="${p != null}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${p.period}">1403/01</td>
+                        <td th:text="${p.totalGross != null ? p.totalGross : 0}">0</td>
+                        <td th:text="${p.totalDeductions != null ? p.totalDeductions : 0}">0</td>
+                        <td th:text="${p.netPayable != null ? p.netPayable : 0}">0</td>
+                        <td>
+                            <span th:if="${p.status == 'CONFIRMED'}" class="badge bg-success">تأیید شده</span>
+                            <span th:if="${p.status == 'CALCULATED'}" class="badge bg-primary">محاسبه شده</span>
+                            <span th:if="${p.status == 'DRAFT'}" class="badge bg-warning">پیش‌نویس</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/employee/payroll/view/{id}(id=${p.id})}" class="btn btn-sm btn-info">🔍 مشاهده جزئیات</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(payrolls)}">
+                        <td colspan="7" class="text-center">هیچ فیش حقوقی برای شما ثبت نشده است</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

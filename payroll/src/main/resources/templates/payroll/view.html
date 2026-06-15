@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مشاهده فیش حقوقی</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h3>فیش حقوقی</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>کارمند:</strong> <span th:text="${payroll.employee.firstName + ' ' + payroll.employee.lastName}"></span></p>
+            <p><strong>دوره:</strong> <span th:text="${payroll.period}"></span></p>
+            <p><strong>وضعیت:</strong> <span th:text="${payroll.status}"></span></p>
+            <hr>
+
+            <h5>📥 دریافت‌ها</h5>
+            <table class="table table-sm">
+                <thead class="table-secondary">
+                <tr><th>شرح</th><th>مبلغ (ریال)</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="d : ${payroll.details}" th:if="${d.itemType == 'EARNING'}">
+                    <td th:text="${d.description}">...<\/td>
+                    <td th:text="${#numbers.formatInteger(d.amount, 1, 'COMMA')}">...<\/td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h5>📤 کسورات</h5>
+            <table class="table table-sm">
+                <thead class="table-secondary">
+                <tr><th>شرح</th><th>مبلغ (ریال)</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="d : ${payroll.details}" th:if="${d.itemType == 'DEDUCTION'}">
+                    <td th:text="${d.description}">...<\/td>
+                    <td th:text="${#numbers.formatInteger(d.amount, 1, 'COMMA')}">...<\/td>
+                </tr>
+                </tbody>
+            </table>
+
+            <hr>
+            <h4 class="text-success">💰 خالص پرداختی: <span th:text="${#numbers.formatInteger(payroll.netPayable, 1, 'COMMA')}"></span> ریال</h4>
+            <a th:href="@{/payrolls}" class="btn btn-secondary">🔙 بازگشت به لیست فیش‌ها</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

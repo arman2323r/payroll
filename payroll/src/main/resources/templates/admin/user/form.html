@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ایجاد کاربر جدید</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="card w-50 mx-auto shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="m-0">ایجاد کاربر جدید</h4>
+        </div>
+        <div class="card-body">
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+            <form th:action="@{/admin/user/save}" th:object="${user}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">نام کاربری</label>
+                    <input type="text" th:field="*{username}" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">رمز عبور</label>
+                    <input type="password" th:field="*{password}" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">کارمند مرتبط</label>
+                    <select th:field="*{employee.id}" class="form-select" required>
+                        <option value="">انتخاب کنید</option>
+                        <option th:each="emp : ${employees}" th:value="${emp.id}" th:text="${emp.firstName} + ' ' + ${emp.lastName}"></option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">ذخیره</button>
+                    <a th:href="@{/admin/user/list}" class="btn btn-secondary">بازگشت به لیست کاربران</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

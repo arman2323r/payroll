@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>جزئیات حکم حقوقی</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="card shadow w-75 mx-auto">
+        <div class="card-header bg-primary text-white">
+            <h4>📜 جزئیات حکم حقوقی</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>تاریخ اجرا:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${decree.effectiveDate}">2025-01-01</span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>حقوق پایه:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${#numbers.formatInteger(decree.basicSalary, 1, 'COMMA')}"></span> ریال
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>حق مسکن:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${#numbers.formatInteger(decree.housingAllowance, 1, 'COMMA')}"></span> ریال
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>بن کارگری:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${#numbers.formatInteger(decree.breadAllowance, 1, 'COMMA')}"></span> ریال
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>سایر مزایا:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${#numbers.formatInteger(decree.otherBenefits, 1, 'COMMA')}"></span> ریال
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>وضعیت:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:if="${decree.isCurrent}" class="badge bg-success">جاری</span>
+                    <span th:unless="${decree.isCurrent}" class="badge bg-secondary">قدیمی</span>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a th:href="@{/employee/decrees}" class="btn btn-secondary">🔙 بازگشت به لیست احکام</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

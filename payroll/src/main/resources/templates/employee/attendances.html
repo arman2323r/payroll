@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>حضور و غیاب من</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="m-0">📅 حضور و غیاب من</h1>
+        <a th:href="@{/employee/dashboard}" class="btn btn-secondary">🔙 بازگشت</a>
+    </div>
+    <div class="card shadow">
+        <div class="card-body">
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div class="table-responsive">
+                <table class="table table-bordered text-center">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>سال/ماه</th>
+                        <th>روزهای حضور</th>
+                        <th>روزهای غیبت</th>
+                        <th>اضافه کار (ساعت)</th>
+                        <th>ماموریت (روز)</th>
+                        <th>عملیات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="a, iterStat : ${attendances}">
+                        <td th:text="${iterStat.count}">1<\/td>
+                        <td th:text="${a.period}">1403/01<\/td>
+                        <td th:text="${a.daysPresent}">0<\/td>
+                        <td th:text="${a.daysAbsent}">0<\/td>
+                        <td th:text="${a.overtimeHours}">0<\/td>
+                        <td th:text="${a.missionDays}">0<\/td>
+                        <td>
+                            <a th:href="@{/employee/attendance/view/{id}(id=${a.id})}" class="btn btn-sm btn-info">🔍 مشاهده جزئیات</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(attendances)}">
+                        <td colspan="7" class="text-center">هیچ رکوردی برای شما ثبت نشده است<\/td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

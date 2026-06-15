@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>پروفایل من</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="card shadow w-50 mx-auto">
+        <div class="card-header bg-primary text-white">
+            <h4>مشخصات فردی</h4>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label">کد ملی</label>
+                <input type="text" th:value="${employee.nationalCode}" class="form-control" readonly disabled>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">نام</label>
+                <input type="text" th:value="${employee.firstName}" class="form-control" readonly disabled>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">نام خانوادگی</label>
+                <input type="text" th:value="${employee.lastName}" class="form-control" readonly disabled>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">تاریخ استخدام</label>
+                <input type="text" th:value="${employee.employmentDate}" class="form-control" readonly disabled>
+            </div>
+            <a th:href="@{/employee/dashboard}" class="btn btn-secondary">🔙 بازگشت</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

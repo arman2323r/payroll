@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لیست حضور و غیاب</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="d-flex justify-content-between mb-4 align-items-center">
+        <h1>حضور و غیاب ماهانه</h1>
+        <div>
+            <a th:href="@{/attendances/new}" class="btn btn-primary">➕ ثبت جدید</a>
+            <a th:href="@{/admin/dashboard}" class="btn btn-secondary">🔙 بازگشت</a>
+        </div>
+    </div>
+    <div class="card shadow">
+        <div class="card-body">
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th>کارمند</th>
+                    <th>دوره</th>
+                    <th>روزهای حضور</th>
+                    <th>اضافه کار (ساعت)</th>
+                    <th>عملیات</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="a : ${attendances}">
+                    <td th:text="${a.employee.firstName + ' ' + a.employee.lastName}">نام کارمند</td>
+                    <td th:text="${a.period}">0</td>
+                    <td th:text="${a.daysPresent}">0</td>
+                    <td th:text="${a.overtimeHours}">0</td>
+                    <td>
+                        <a th:href="@{/attendances/edit/{id}(id=${a.id})}" class="btn btn-sm btn-warning me-1">✏️ ویرایش</a>
+                        <a th:href="@{/attendances/delete/{id}(id=${a.id})}" class="btn btn-sm btn-danger" onclick="return confirm('حذف شود؟')">🗑️ حذف</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(attendances)}">
+                    <td colspan="5" class="text-center">هیچ رکوردی یافت نشد</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

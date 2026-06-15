@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ثبت کسر جدید</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <style>
+        .number-format {
+            text-align: left;
+            direction: ltr;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="card w-75 mx-auto shadow">
+        <div class="card-header bg-primary text-white">
+            <h3>ثبت کسر جدید</h3>
+        </div>
+        <div class="card-body">
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+            <form th:action="@{/deductions/save}" th:object="${deduction}" method="post" id="deductionForm">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="mb-3">
+                    <label class="form-label">کارمند</label>
+                    <select th:field="*{employee.id}" class="form-select" required>
+                        <option value="">انتخاب کنید</option>
+                        <option th:each="emp : ${employees}" th:value="${emp.id}" th:text="${emp.firstName} + ' ' + ${emp.lastName}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">نوع کسر</label>
+                    <select th:field="*{deductionType}" class="form-select" required>
+                        <option value="">انتخاب کنید</option>
+                        <option value="LOAN">وام</option>
+                        <option value="ADVANCE">مساعده</option>
+                        <option value="PENALTY">جریمه</option>
+                        <option value="OTHER">سایر</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">مبلغ (ریال)</label>
+                    <input type="text" id="amount" class="form-control number-format" required>
+                    <input type="hidden" th:field="*{amount}" id="amountHidden">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">دوره</label>
+                    <input type="month" th:field="*{period}" class="form-control" required>
+                    <small class="form-text text-muted">مثال: 2025-03 (سال-ماه)</small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">توضیحات (اختیاری)</label>
+                    <textarea th:field="*{description}" class="form-control" rows="2"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">شماره مرجع</label>
+                    <input type="text" th:field="*{externalRefId}" class="form-control" required>
+                    <small class="form-text text-muted">یک شناسه یکتا برای این کسر (مثلاً شماره وام یا مساعده)</small>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">ذخیره کسر</button>
+                    <a th:href="@{/deductions}" class="btn btn-secondary">انصراف</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function formatNumber(num) {
+        if (!num) return '';
+        return Number(num).toLocaleString('en-US');
+    }
+
+    function parseNumber(str) {
+        if (!str) return '';
+        return str.replace(/,/g, '');
+    }
+
+    const amountInput = document.getElementById('amount');
+    const amountHidden = document.getElementById('amountHidden');
+
+    if (amountHidden.value) {
+        amountInput.value = formatNumber(amountHidden.value);
+    }
+
+    amountInput.addEventListener('input', function() {
+        let rawValue = parseNumber(this.value);
+        this.value = formatNumber(rawValue);
+        amountHidden.value = rawValue;
+    });
+
+    document.getElementById('deductionForm').addEventListener('submit', function() {
+        amountHidden.value = parseNumber(amountInput.value);
+    });
+</script>
+</body>
+</html>

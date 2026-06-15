@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>جزئیات حضور و غیاب</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="card shadow w-75 mx-auto">
+        <div class="card-header bg-primary text-white">
+            <h4>📅 جزئیات حضور و غیاب</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>سال/ماه:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${attendance.period}">1403/01</span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>روزهای حضور:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${attendance.daysPresent}">0</span> روز
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>روزهای غیبت:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${attendance.daysAbsent}">0</span> روز
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>ساعت اضافه کار:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${attendance.overtimeHours}">0</span> ساعت
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>روزهای ماموریت:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${attendance.missionDays}">0</span> روز
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>ساعت تأخیر:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${attendance.lateHours}">0</span> ساعت
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>اضافه کار تعطیل:</strong>
+                </div>
+                <div class="col-6">
+                    <span th:text="${attendance.extraWorkHoliday}">0</span> ساعت
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a th:href="@{/employee/attendances}" class="btn btn-secondary">🔙 بازگشت به لیست حضور و غیاب</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

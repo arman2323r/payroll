@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>پنل مدیریت</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        .card { transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-success">🏢 پنل مدیریت</h1>
+        <div class="d-flex gap-2">
+            <a th:href="@{/admin/user/list}" class="btn btn-warning">👥 مدیریت کاربران</a>
+            <form th:action="@{/logout}" method="post" class="m-0">
+                <button type="submit" class="btn btn-danger">🚪 خروج از سیستم</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="alert alert-info text-center shadow-sm">
+        <strong>خوش آمدید <span sec:authentication="name"></span>!</strong>
+        شما با نقش <strong sec:authentication="authorities"></strong> وارد شده‌اید.
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h3>📊</h3>
+                    <h5>حقوق پایه سالانه</h5>
+                    <p class="text-muted">مدیریت حقوق پایه، بن، مسکن و جداول مالیاتی</p>
+                    <a th:href="@{/salary}" class="btn btn-primary">ورود</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h3>👥</h3>
+                    <h5>کارمندان</h5>
+                    <p class="text-muted">مدیریت اطلاعات پرسنلی</p>
+                    <a th:href="@{/employees}" class="btn btn-primary">ورود</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h3>📜</h3>
+                    <h5>احکام کارکنان</h5>
+                    <p class="text-muted">صدور و مدیریت احکام</p>
+                    <a th:href="@{/decrees}" class="btn btn-primary">ورود</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h3>📅</h3>
+                    <h5>حضور و غیاب</h5>
+                    <p class="text-muted">ثبت و مدیریت حضور و غیاب ماهانه</p>
+                    <a th:href="@{/attendances}" class="btn btn-primary">ورود</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h3>💰</h3>
+                    <h5>کسورات</h5>
+                    <p class="text-muted">مدیریت کسورات (وام، جریمه و ...)</p>
+                    <a th:href="@{/deductions}" class="btn btn-primary">ورود</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h3>🧾</h3>
+                    <h5>فیش حقوقی</h5>
+                    <p class="text-muted">محاسبه و مشاهده فیش حقوقی ماهانه</p>
+                    <a th:href="@{/payrolls}" class="btn btn-primary">ورود</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

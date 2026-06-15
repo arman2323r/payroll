@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لیست احکام حقوقی</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <div class="d-flex justify-content-between mb-4 align-items-center">
+        <h1 class="m-0">لیست احکام حقوقی</h1>
+        <div>
+            <a th:href="@{/decrees/new}" class="btn btn-primary">➕ حکم جدید</a>
+            <a th:href="@{/admin/dashboard}" class="btn btn-secondary">🔙 بازگشت</a>
+        </div>
+    </div>
+    <div class="card shadow">
+        <div class="card-body">
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <table class="table table-bordered text-center">
+                <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>کارمند</th>
+                    <th>تاریخ اجرا</th>
+                    <th>حقوق پایه (ریال)</th>
+                    <th>سایر مزایا (ریال)</th>
+                    <th>وضعیت</th>
+                    <th>عملیات</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="d, iterStat : ${decrees}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${d.employee.firstName + ' ' + d.employee.lastName}">نام کارمند</td>
+                    <td th:text="${d.effectiveDate}">2025-01-01</td>
+                    <td th:text="${#numbers.formatInteger(d.basicSalary, 1, 'COMMA')}">0</td>
+                    <td th:text="${#numbers.formatInteger(d.otherBenefits, 1, 'COMMA')}">0</td>
+                    <td>
+                        <span th:if="${d.isCurrent}" class="badge bg-success">جاری</span>
+                        <span th:unless="${d.isCurrent}" class="badge bg-secondary">قدیمی</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/decrees/edit/{id}(id=${d.id})}" class="btn btn-sm btn-warning me-1">✏️ ویرایش</a>
+                        <a th:href="@{/decrees/delete/{id}(id=${d.id})}" class="btn btn-sm btn-danger" onclick="return confirm('آیا از حذف این حکم اطمینان دارید؟')">🗑️ حذف</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(decrees)}">
+                    <td colspan="7" class="text-center">هیچ حکمی ثبت نشده است</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

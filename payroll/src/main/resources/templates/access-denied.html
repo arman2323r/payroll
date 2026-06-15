@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>عدم دسترسی</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5 text-center">
+    <div class="card shadow w-50 mx-auto">
+        <div class="card-header bg-danger text-white">
+            <h3>⛔ عدم دسترسی</h3>
+        </div>
+        <div class="card-body">
+            <p>شما مجوز مشاهده این صفحه را ندارید.</p>
+            <a th:href="@{/employee/dashboard}" class="btn btn-primary">بازگشت به پنل کاربری</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

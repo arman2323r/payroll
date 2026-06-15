@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: payroll
+
+#mvc:
+#  hiddenmethod:
+#    filter:
+#      enabled: true
+
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: payroll
+    password: 123
+    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  thymeleaf:
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    encoding: utf-8
+
+server:
+  port:
+    8095
+
+

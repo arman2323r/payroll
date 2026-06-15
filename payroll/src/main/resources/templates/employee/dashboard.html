@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>پنل کاربری</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-primary">🏢 پنل کاربری</h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-danger">🚪 خروج</button>
+        </form>
+    </div>
+
+    <div class="alert alert-info text-center">
+        <strong>خوش آمدید <span sec:authentication="name"></span>!</strong>
+        شما با نقش <strong sec:authentication="authorities"></strong> وارد شده‌اید.
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5>📋 مشخصات من</h5>
+                    <a th:href="@{/employee/profile}" class="btn btn-primary">مشاهده</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5>📜 احکام من</h5>
+                    <a th:href="@{/employee/decrees}" class="btn btn-primary">مشاهده</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5>💰 فیش‌های حقوقی من</h5>
+                    <a th:href="@{/employee/payrolls}" class="btn btn-primary">مشاهده</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5>📅 حضور و غیاب من</h5>
+                    <a th:href="@{/employee/attendances}" class="btn btn-primary">مشاهده</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

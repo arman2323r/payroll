@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ورود به سیستم</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4>ورود به سیستم</h4>
+                </div>
+                <div class="card-body">
+                    <div th:if="${param.error}" class="alert alert-danger">نام کاربری یا رمز عبور اشتباه است</div>
+                    <div th:if="${param.logout}" class="alert alert-info">خارج شدید</div>
+
+                    <form method="post" th:action="@{/login}">
+                        <div class="mb-3">
+                            <label>نام کاربری</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>رمز عبور</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">ورود</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

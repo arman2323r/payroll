@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مدیریت کاربران</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <div class="d-flex justify-content-between mb-4 align-items-center">
+        <h1 class="m-0">مدیریت کاربران</h1>
+        <div>
+            <a th:href="@{/admin/user/new}" class="btn btn-primary mx-1">➕ کاربر جدید</a>
+            <a th:href="@{/}" class="btn btn-secondary">🔙 بازگشت</a>
+        </div>
+    </div>
+    <div class="card shadow">
+        <div class="card-body">
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <table class="table table-bordered text-center">
+                <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>نام کاربری</th>
+                    <th>نقش</th>
+                    <th>کارمند مرتبط</th>
+                    <th>عملیات</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u : ${users}">
+                    <td th:text="${u.id}">1</td>
+                    <td th:text="${u.username}">username</td>
+                    <td>
+                        <span th:if="${u.role == 'ADMIN'}" class="badge bg-danger">ادمین</span>
+                        <span th:if="${u.role == 'EMPLOYEE'}" class="badge bg-success">کارمند</span>
+                    </td>
+                    <td th:text="${u.employee?.firstName + ' ' + u.employee?.lastName}">-</td>
+                    <td>
+                        <a th:href="@{/admin/user/delete/{id}(id=${u.id})}"
+                           class="btn btn-sm btn-danger"
+                           onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')">حذف</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(users)}">
+                    <td colspan="5" class="text-center">هیچ کاربری یافت نشد</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
